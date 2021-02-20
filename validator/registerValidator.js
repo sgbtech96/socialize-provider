@@ -6,7 +6,7 @@ const registerValidator = Joi.object({
       tlds: { allow: ["com", "net"] },
     })
     .required(),
-  handle: Joi.string().min(4).max(12).required(),
+  handle: Joi.string().min(4).max(8).required(),
   password: Joi.string()
     .pattern(new RegExp("[A-Za-z0-9]{4,}"))
     .min(4)

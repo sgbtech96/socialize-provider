@@ -17,14 +17,12 @@ module.exports = async (req, res, next) => {
   try {
     decodedToken = await jwt.verify(encodedToken, SECRET_KEY);
     const { handle } = decodedToken;
-    const record = await USER.findOne({ handle }).select("tokens");
+    const record = await USER.findOne({ handle }).select("tokens -_id");
     if (!record) {
       res.send(generateError(errorMessage));
       return;
     }
-    const ifTokenExists = record.tokens.filter(
-      (tokenObj) => tokenObj.token === encodedToken
-    );
+    const ifTokenExists = record.tokens.filter((token) => token === encodedToken);
 
     if (ifTokenExists.length == 0) {
       res.send(generateError(errorMessage));

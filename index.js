@@ -1,9 +1,10 @@
+const chalk = require("chalk");
 const express = require("express");
 const app = express();
 const http = require("http");
-const server = http.createServer(app);
+const httpServer = http.createServer(app);
 const socketIOServer = require("socket.io");
-const io = socketIOServer(server);
+const io = socketIOServer(httpServer);
 
 const { PORT: port = 8000 } = process.env;
 require("./db/connection");
@@ -13,14 +14,13 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => res.send(`Server is up on port ${port}!!`));
-app.use("/onboarding", require("./api/v1/onboarding/routes"));
-app.use("/auth", require("./api/v1/auth/routes"));
+app.use("/api/v1", require("./api/v1"));
 
 io.use(require("./middleware/socketAuth")).on(
   "connection",
-  require("./api/v1/socket")
+  require("./api/v1/socket/routes")(io)
 );
 
-server.listen(port, () => {
-  console.log(`Server is up on port ${port}!!`);
+httpServer.listen(port, () => {
+  console.log(chalk.greenBright(`Server is up on port ${port}!!`));
 });

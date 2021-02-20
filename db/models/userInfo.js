@@ -1,14 +1,14 @@
-//users model, will record each registered user, and keeps track of their login sessions
 const mongoose = require("mongoose");
-
 const schema = mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   handle: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
@@ -16,14 +16,20 @@ const schema = mongoose.Schema({
   },
   tagline: {
     type: String,
+    default: null,
   },
   imageUrl: {
     type: String,
+    default: null,
   },
   tokens: {
-    type: Array,
-    required: true,
+    type: [String],
+    default: [],
+  },
+  sockets: {
+    type: [String],
+    default: [],
   },
 });
-const USER = mongoose.model("user", schema);
+const USER = mongoose.model("User", schema);
 module.exports = USER;

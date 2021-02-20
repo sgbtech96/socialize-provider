@@ -1,11 +1,8 @@
 const mongoose = require("mongoose");
+const shortid = require("shortid");
 
-const schema = mongoose.Schema({
-  from: {
-    type: String,
-    required: true,
-  },
-  to: {
+const messageSchema = mongoose.Schema({
+  sender: {
     type: String,
     required: true,
   },
@@ -15,9 +12,29 @@ const schema = mongoose.Schema({
   },
   timeStamp: {
     type: Date,
-    required: true,
+    default: Date.now(),
   },
 });
 
-const CHAT = mongoose.model("chat", schema);
+const arrayLimit = (val) => {
+  return val.length == 2;
+};
+const chatSchema = mongoose.Schema({
+  channelId: {
+    type: String,
+    default: shortid.generate(),
+    unique: true,
+  },
+  members: {
+    type: [String],
+    required: 2,
+    validate: [arrayLimit, "Only 2 people allowed in a channel!"],
+  },
+  chats: {
+    type: [messageSchema],
+    default: [],
+  },
+});
+
+const CHAT = mongoose.model("Chat", chatSchema);
 module.exports = CHAT;
