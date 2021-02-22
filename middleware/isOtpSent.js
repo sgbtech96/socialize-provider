@@ -6,18 +6,18 @@ const {
   generateError,
 } = require("../helper/response");
 module.exports = async (req, res, next) => {
-  let val;
+  let validatedData;
   try {
-    val = await verifyOtpValidator.validateAsync(req.body);
+    validatedData = await verifyOtpValidator.validateAsync(req.body);
   } catch (e) {
     res.send(generateLog(e.details[0].message));
     return;
   }
-  const { email, otp } = val;
+  const { email, otp } = validatedData;
   try {
-    const record = await SIGN_UP.findOne({ email }).select("otp");
+    const record = await SIGN_UP.findOne({ email }).select("otp -_id");
     if (!record) {
-      res.send(generateLog("No OTP was sent!"));
+      res.send(generateLog(`No OTP was sent to ${email}!`));
       return;
     }
     req.app.locals.data = { email, otp, sentOtp: record.otp };

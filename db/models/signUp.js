@@ -4,6 +4,7 @@ const schema = mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   otp: {
     type: Number,
@@ -11,13 +12,9 @@ const schema = mongoose.Schema({
   },
   verified: {
     type: Boolean,
-    required: true,
-  },
-  attempts: {
-    type: Number,
-    required: true,
+    default: false,
   },
 });
 
-const SIGN_UP = mongoose.model("sign_up", schema);
+const SIGN_UP = mongoose.model("SignUp", schema);
 module.exports = SIGN_UP;
