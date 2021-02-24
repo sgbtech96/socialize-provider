@@ -14,6 +14,10 @@ const schema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  registered: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const SIGN_UP = mongoose.model("SignUp", schema);

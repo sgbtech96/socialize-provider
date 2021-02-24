@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
       res.send(generateLog(errorMessage));
       return;
     }
-    if (user.tokens.length >= 2) {
+    if (user.tokens.length >= 200) {
       res.send(
         generateLog("You have exceeded session limit, logout of atleast 1 device!")
       );
@@ -54,7 +54,7 @@ module.exports = async (req, res) => {
         },
       }
     );
-    res.send(generateLog("LoggedIn successfully!"));
+    res.send(generateSuccess({ token }));
   } catch (e) {
     res.send(generateError(e));
     return;

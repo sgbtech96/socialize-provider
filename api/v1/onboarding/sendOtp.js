@@ -17,17 +17,17 @@ module.exports = async (req, res) => {
   }
   const { email } = validatedData;
   try {
-    const record = await SIGN_UP.findOne({ email }).select("verified -_id");
-    if (record) {
-      res.send(
-        generateLog(
-          `${
-            record.verified
-              ? "An account is already associated to this email!"
-              : "An OTP has already been sent to this email!"
-          }`
-        )
-      );
+    const record = await SIGN_UP.findOne({ email }).select(
+      "verified registered -_id"
+    );
+    if (record?.registered) {
+      res.send(generateLog("An account is already associated to this email!"));
+      return;
+    } else if (record?.verified) {
+      res.send(generateLog("OTP is already verified against this email!"));
+      return;
+    } else if (record) {
+      res.send(generateLog("An OTP has already been sent to this email!"));
       return;
     }
   } catch (e) {
@@ -40,7 +40,7 @@ module.exports = async (req, res) => {
   const mailOptions = {
     from: process.env.ADMIN_EMAIL,
     to: email,
-    subject: "Forny account verification code",
+    subject: "shhh! account verification code",
     text: `Use ${otp} as your one time authentication code`,
   };
 

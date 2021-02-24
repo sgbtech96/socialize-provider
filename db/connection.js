@@ -10,5 +10,5 @@ mongoose
     console.log(chalk.greenBright(`Successfully established a connection to db!`))
   )
   .catch((e) =>
-    console.log(chalk.redBright(`Something went wrong while connecting to db!`))
+    console.log(chalk.redBright(`Something went wrong while connecting to db!`, e))
   );

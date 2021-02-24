@@ -4,7 +4,6 @@ const friendSchema = mongoose.Schema({
   handle: {
     type: String,
     required: true,
-    unique: true,
   },
   channelId: {
     type: String,
@@ -16,7 +15,6 @@ const inviteSchema = mongoose.Schema({
   handle: {
     type: String,
     required: true,
-    unique: true,
   },
   group: {
     type: String,

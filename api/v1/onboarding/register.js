@@ -1,6 +1,5 @@
-const chalk = require("chalk");
 const bcrypt = require("bcrypt");
-const { USER, SOCIAL } = require("../../../db/models");
+const { USER, SOCIAL, SIGN_UP } = require("../../../db/models");
 const {
   generateSuccess,
   generateLog,
@@ -11,6 +10,14 @@ module.exports = async (req, res) => {
   bcrypt.hash(password, 8, async (err, hash) => {
     if (err) res.send(generateError(err));
     try {
+      await SIGN_UP.findOneAndUpdate(
+        { email },
+        {
+          $set: {
+            registered: true,
+          },
+        }
+      );
       const newUser = new USER({ email, handle, password: hash });
       await newUser.save();
       const newSocial = new SOCIAL({ handle });
