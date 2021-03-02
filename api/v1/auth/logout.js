@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
         },
       }
     );
-    res.send(generateLog("Logged out!"));
+    res.send(generateSuccess("Logged out!"));
   } catch (e) {
     generateError(e);
     return;

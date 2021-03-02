@@ -6,7 +6,7 @@ const {
   generateError,
 } = require("../../../helper/response");
 module.exports = async (req, res) => {
-  const { email, handle, password } = req.body;
+  const { email, handle, name, password } = req.body;
   bcrypt.hash(password, 8, async (err, hash) => {
     if (err) res.send(generateError(err));
     try {
@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
           },
         }
       );
-      const newUser = new USER({ email, handle, password: hash });
+      const newUser = new USER({ email, handle, name, password: hash });
       await newUser.save();
       const newSocial = new SOCIAL({ handle });
       await newSocial.save();

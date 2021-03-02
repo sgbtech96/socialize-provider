@@ -8,7 +8,7 @@ const {
 module.exports = async (req, res) => {
   const { userHandle } = req.params;
   try {
-    const { sockets } = await USER.find({ handle: userHandle }).select(
+    const { sockets } = await USER.findOne({ handle: userHandle }).select(
       "sockets -_id"
     );
     if (sockets.length > 0)

@@ -20,6 +20,7 @@ module.exports = async (req, res) => {
         $in: handlesOfFriends,
       },
     }).select("handle name imageUrl tagline -_id");
+    users = users.map((user) => user.toObject());
     users.forEach((user) => {
       friends.forEach((friend) => {
         if (user.handle === friend.handle) user.channelId = friend.channelId;

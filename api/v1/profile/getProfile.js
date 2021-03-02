@@ -1,3 +1,4 @@
+const chalk = require("chalk");
 const {
   generateSuccess,
   generateLog,
@@ -10,10 +11,11 @@ module.exports = async (req, res) => {
   if (!handle) handle = req.app.locals.handle;
   try {
     const userProfile = await USER.findOne({ handle }).select(
-      "name handle tagline imageUrl -_id"
+      "handle name tagline imageUrl -_id"
     );
     res.send(generateSuccess(userProfile));
   } catch (e) {
+    console.log(chalk.redBright(e));
     res.send(generateError(e));
   }
 };

@@ -1,3 +1,4 @@
+const chalk = require("chalk");
 const {
   generateSuccess,
   generateLog,
@@ -20,6 +21,7 @@ module.exports = async (req, res) => {
     );
     res.send(generateSuccess("Update successful!"));
   } catch (e) {
+    console.log(chalk.redBright(e));
     res.send(generateError(e));
   }
 };

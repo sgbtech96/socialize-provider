@@ -1,8 +1,10 @@
+const chalk = require("chalk");
 const { CHAT } = require("../../../db/models");
 module.exports = (io, socket) => async (channelId, text) => {
   const { handle: myHandle } = socket;
+  console.log(`${myHandle} sent ${text}`);
   const message = {
-    sender: myHandle,
+    senderHandle: myHandle,
     text,
     timeStamp: Date.now(),
   };
@@ -15,6 +17,8 @@ module.exports = (io, socket) => async (channelId, text) => {
           chats: message,
         },
       }
-    );
-  } catch (e) {}
+    ).exec();
+  } catch (e) {
+    console.log(chalk.redBright(e));
+  }
 };

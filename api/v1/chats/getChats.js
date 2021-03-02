@@ -11,10 +11,11 @@ module.exports = async (req, res) => {
   try {
     const record = await CHAT.findOne({ channelId }).select("members chats -_id");
     const { members, chats } = record;
-    if (!members.include(handle))
+    if (!members.includes(handle))
       res.send(generateLog("Unauthorized for this channel!"));
     res.send(generateSuccess(chats));
   } catch (e) {
+    console.log(e);
     res.send(generateError(e));
   }
 };

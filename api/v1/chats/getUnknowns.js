@@ -8,11 +8,19 @@ const {
 module.exports = async (req, res) => {
   const { handle } = req.app.locals;
   try {
-    const { friends } = await SOCIAL.find({ handle }).select("friends -_id");
-    const handlesOfFriends = friends.map((friend) => friend.handle);
+    const { friends, invites } = await SOCIAL.findOne({ handle }).select(
+      "friends invites -_id"
+    );
+    let excludedHandles = [];
+    friends.forEach((friend) => {
+      excludedHandles.push(friend.handle);
+    });
+    invites.forEach((invite) => {
+      excludedHandles.push(invite.handle);
+    });
     const users = await USER.find({
       handle: {
-        $nin: handlesOfFriends,
+        $nin: [...excludedHandles, handle],
       },
     }).select("handle name imageUrl tagline -_id");
     res.send(generateSuccess(users));

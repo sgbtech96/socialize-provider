@@ -16,7 +16,7 @@ const inviteSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  group: {
+  type: {
     type: String,
     required: true,
     enum: ["sent", "received"],

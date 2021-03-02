@@ -5,7 +5,7 @@ const { auth } = require("../../../middleware");
 
 const router = express.Router();
 
-router.get("/me:handle", [auth], me);
+router.get("/me/:handle?", [auth], me);
 router.put("/edit", [auth], edit);
 
 module.exports = router;

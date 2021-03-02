@@ -10,13 +10,19 @@ module.exports = async (req, res) => {
   try {
     const record = await SOCIAL.findOne({ handle }).select("invites -_id");
     const { invites } = record;
-    const userHandles = invites.map((invite) => invite.handle);
+    const userHandles = invites.map((invite) => {
+      if (invite.type === "received") return invite.handle;
+    });
     const users = await USER.find({
       handle: {
         $in: userHandles,
       },
     }).select("handle imageUrl -_id");
-    res.send(generateSuccess(users));
+    let notifications = [];
+    users.forEach((user) => {
+      notifications.push({ user, type: "invite" });
+    });
+    res.send(generateSuccess(notifications));
   } catch (e) {
     res.send(generateError(e));
   }

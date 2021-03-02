@@ -5,7 +5,6 @@ const { USER } = require("../db/models");
 
 module.exports = async (socket, next) => {
   const rawToken = socket.handshake.auth.token;
-  // console.log(chalk.blueBright(rawToken));
   if (!rawToken || !rawToken.startsWith("Bearer ")) {
     const err = new Error("Not authorized!");
     next(err);
@@ -31,6 +30,7 @@ module.exports = async (socket, next) => {
     socket.handle = handle;
     next();
   } catch (e) {
+    console.log(chalk.redBright(e));
     const err = new Error("Not authorized!");
     next(err);
   }

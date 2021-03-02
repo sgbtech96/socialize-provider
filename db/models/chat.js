@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
-const shortid = require("shortid");
 
 const messageSchema = mongoose.Schema({
-  sender: {
+  senderHandle: {
     type: String,
     required: true,
   },
@@ -22,7 +21,6 @@ const arrayLimit = (val) => {
 const chatSchema = mongoose.Schema({
   channelId: {
     type: String,
-    default: shortid.generate(),
     unique: true,
   },
   members: {
