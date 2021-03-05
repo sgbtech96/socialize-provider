@@ -2,7 +2,7 @@ const chalk = require("chalk");
 const { CHAT } = require("../../../db/models");
 module.exports = (io, socket) => async (channelId, text) => {
   const { handle: myHandle } = socket;
-  console.log(`${myHandle} sent ${text}`);
+  // console.log(`${myHandle} sent ${text}`);
   const message = {
     senderHandle: myHandle,
     text,
@@ -19,6 +19,6 @@ module.exports = (io, socket) => async (channelId, text) => {
       }
     ).exec();
   } catch (e) {
-    console.log(chalk.redBright(e));
+    // console.log(chalk.redBright(e));
   }
 };

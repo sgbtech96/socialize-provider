@@ -2,7 +2,7 @@ const chalk = require("chalk");
 const { USER } = require("../../../db/models");
 module.exports = (io, socket) => async () => {
   const { handle: myHandle } = socket;
-  console.log(chalk.blueBright(`${myHandle} came online! ${socket.id}`));
+  // console.log(chalk.blueBright(`${myHandle} came online! ${socket.id}`));
   socket.broadcast.emit(`USER_CAME_ONLINE`, myHandle);
   try {
     USER.findOneAndUpdate(
@@ -14,6 +14,6 @@ module.exports = (io, socket) => async () => {
       }
     ).exec();
   } catch (e) {
-    console.log(chalk.redBright(e));
+    // console.log(chalk.redBright(e));
   }
 };

@@ -2,7 +2,7 @@ const chalk = require("chalk");
 const { USER, SOCIAL } = require("../../../db/models");
 module.exports = (io, socket) => async (userHandle) => {
   const { handle: myHandle } = socket;
-  console.log(chalk.blueBright(`${myHandle} invited ${userHandle}!`));
+  // console.log(chalk.blueBright(`${myHandle} invited ${userHandle}!`));
   try {
     const { sockets: userSockets } = await USER.findOne({
       handle: userHandle,
@@ -28,6 +28,6 @@ module.exports = (io, socket) => async (userHandle) => {
       }
     ).exec();
   } catch (e) {
-    console.log(chalk.redBright(e));
+    // console.log(chalk.redBright(e));
   }
 };

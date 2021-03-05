@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
     );
     res.send(generateSuccess(userProfile));
   } catch (e) {
-    console.log(chalk.redBright(e));
+    // console.log(chalk.redBright(e));
     res.send(generateError(e));
   }
 };

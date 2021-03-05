@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
       res.send(generateLog("Unauthorized for this channel!"));
     res.send(generateSuccess(chats));
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     res.send(generateError(e));
   }
 };

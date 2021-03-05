@@ -30,7 +30,7 @@ module.exports = async (socket, next) => {
     socket.handle = handle;
     next();
   } catch (e) {
-    console.log(chalk.redBright(e));
+    // console.log(chalk.redBright(e));
     const err = new Error("Not authorized!");
     next(err);
   }

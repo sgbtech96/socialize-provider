@@ -3,7 +3,7 @@ const uniqueString = require("unique-string");
 const { USER, SOCIAL, CHAT } = require("../../../db/models");
 module.exports = (io, socket) => async (userHandle) => {
   const { handle: myHandle } = socket;
-  console.log(chalk.yellowBright(`${myHandle} accepted ${userHandle}'s request!`));
+  // console.log(chalk.yellowBright(`${myHandle} accepted ${userHandle}'s request!`));
   try {
     const rec = await USER.find({
       handle: {
@@ -57,6 +57,6 @@ module.exports = (io, socket) => async (userHandle) => {
       }
     ).exec();
   } catch (e) {
-    console.log(chalk.redBright(e));
+    // console.log(chalk.redBright(e));
   }
 };
