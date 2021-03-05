@@ -20,6 +20,8 @@ module.exports = (io, socket) => async (userHandle) => {
       userProfile = rec[0];
     }
     const channelId = uniqueString();
+    const instance = new CHAT({ channelId, members: [userHandle, myHandle] });
+    await instance.save();
     myProfile.sockets.map((socketId) =>
       io.to(socketId).emit("REQUEST_ACCEPTED", {
         user: { ...userProfile.toObject(), channelId, sockets: undefined },
@@ -54,8 +56,6 @@ module.exports = (io, socket) => async (userHandle) => {
         },
       }
     ).exec();
-    const instance = new CHAT({ channelId, members: [userHandle, myHandle] });
-    instance.save();
   } catch (e) {
     console.log(chalk.redBright(e));
   }

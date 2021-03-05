@@ -9,7 +9,7 @@ module.exports = (io, socket) => async (channelId, text) => {
     timeStamp: Date.now(),
   };
   try {
-    io.to(channelId).emit("INCOMING_MESSAGE", message);
+    io.in(channelId).emit("INCOMING_MESSAGE", { message, channelId });
     CHAT.findOneAndUpdate(
       { channelId },
       {
