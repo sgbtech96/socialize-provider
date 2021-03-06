@@ -4,7 +4,11 @@ const app = express();
 const http = require("http");
 const httpServer = http.createServer(app);
 const socketIOServer = require("socket.io");
-const io = socketIOServer(httpServer);
+const io = socketIOServer(httpServer, {
+  cors: {
+    origin: "https://shhh-secure-chat.herokuapp.com/",
+  },
+});
 
 const { PORT: port = 8000 } = process.env;
 require("./db/connection");
