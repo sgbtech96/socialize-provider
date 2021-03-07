@@ -29,17 +29,13 @@
     "chalk": "^4.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-validation": "^3.0.6",
     "googleapis": "^67.1.1",
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.14",
-    "nanoid": "^3.1.20",
     "nodemailer": "^6.4.17",
-    "shortid": "^2.2.16",
     "socket.io": "^3.1.0",
     "unique-string": "^2.0.0",
-    "uuid": "^8.3.2",
     "validator": "^13.5.2"
   },
   "devDependencies": {
