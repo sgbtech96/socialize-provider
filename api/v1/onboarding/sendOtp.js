@@ -6,7 +6,7 @@ const {
 const { emailValidator } = require("../../../validator");
 const { SIGN_UP } = require("../../../db/models");
 
-const transporter = require("../../../helper/transporter");
+const sendMail = require("../../../helper/sendMail");
 module.exports = async (req, res) => {
   let validatedData;
   try {
@@ -37,25 +37,20 @@ module.exports = async (req, res) => {
   let lo = 1000,
     hi = 9999;
   const otp = Math.floor(Math.random() * (hi - lo + 1)) + lo;
-  const mailOptions = {
-    from: process.env.ADMIN_EMAIL,
-    to: email,
-    subject: "shhh! account verification code",
-    text: `Use ${otp} as your one time authentication code`,
-  };
-
-  transporter.sendMail(mailOptions, async (error, info) => {
-    if (error) {
+  sendMail(email, otp)
+    .then(async (result) => {
+      console.log(result);
+      try {
+        const newSignUp = new SIGN_UP({ email, otp });
+        await newSignUp.save();
+        res.send(generateSuccess(`OTP sent to email ${email}`));
+      } catch (e) {
+        res.send(generateError(e));
+        return;
+      }
+    })
+    .catch((e) => {
       res.send(generateLog("OTP wasn't sent!"));
       return;
-    }
-    try {
-      const newSignUp = new SIGN_UP({ email, otp });
-      await newSignUp.save();
-      res.send(generateSuccess(`OTP sent to email ${email}`));
-    } catch (e) {
-      res.send(generateError(e));
-      return;
-    }
-  });
+    });
 };
