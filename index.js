@@ -6,7 +6,7 @@ const httpServer = http.createServer(app);
 const socketIOServer = require("socket.io");
 const io = socketIOServer(httpServer, {
   cors: true,
-  origins: ["https://shhh-secure-chat.herokuapp.com/", "http://localhost:3000/"],
+  origins: ["https://let-us-socialize.herokuapp.com/", "http://localhost:3000/"],
 });
 
 const { PORT: port = 8000 } = process.env;
